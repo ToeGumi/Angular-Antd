@@ -1,4 +1,64 @@
-<!-- NG-ZORRO -->
-<a href="https://github.com/NG-ZORRO/ng-zorro-antd" target="_blank" style="display: flex;align-items: center;justify-content: center;height: 100%;width: 100%;">
-  <img height="300" src="https://img.alicdn.com/tfs/TB1X.qJJgHqK1RjSZFgXXa7JXXa-89-131.svg">
-</a>
+<nz-page-header nzTitle="TodoList"></nz-page-header>
+<ul nz-menu nzMode="horizontal" >
+  <li nz-menu-item nzSelected>List</li>
+  <li nz-menu-item>Create</li>
+  <li nz-menu-item [nzDisabled]="true">Update</li>
+</ul>
+<h3 [ngStyle]="{ margin: '1em'}">List</h3>
+
+<label
+  nz-checkbox
+  [(ngModel)]="allChecked"
+  (ngModelChange)="updateAllChecked()"
+  [nzIndeterminate]="indeterminate"
+  >Check all</label>
+
+<nz-list nzSize="large" nzBordered [ngStyle]="{ width: '300px' }">
+  <nz-list-item *ngFor="let todo of todos">
+    <ul nz-list-item-actions>
+      <nz-list-item-action>
+        <a nz-icon nzType="check" nzTheme="outline"></a>
+      </nz-list-item-action>
+      <nz-list-item-action>
+        <a nz-icon nzType="edit" nzTheme="outline"></a>
+      </nz-list-item-action>
+      <nz-list-item-action>
+        <a
+          nz-popconfirm
+          nzPopconfirmTitle="Are you sure delete these todos?"
+          (nzOnConfirm)="confirm()"
+          (nzOnCancel)="cancel()"
+          >
+          <span nz-icon nzType="delete" nzTheme="outline"></span>
+        </a>
+      </nz-list-item-action>
+    </ul>
+    <label
+      nz-checkbox
+      [(ngModel)]="todo.checked"
+      (ngModelChange)="updateSingleChecked()"
+      ></label>
+    {{ todo.title }}
+  </nz-list-item>
+
+  <div nz-row>
+    <div nz-col nzSpan="4">
+      <a nz-icon nzType="check" nzTheme="outline"></a> |
+      <a nz-icon nzType="close" nzTheme="outline"></a>
+    </div>
+    <div nz-col nzSpan="15" nzOffset="2">
+      <a href="#">show all completed</a>
+    </div>
+    <div nz-col nzSpan="3">
+      <a
+        nz-popconfirm
+        nzPopconfirmTitle="Are you sure delete these todos?"
+        (nzOnConfirm)="confirm()"
+        (nzOnCancel)="cancel()"
+      >
+        <span nz-icon nzType="delete" nzTheme="outline"></span>
+      </a>
+    </div>
+  </div>
+</nz-list>
+
